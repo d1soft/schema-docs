@@ -1,0 +1,21 @@
+{
+	"databases": [
+        {
+            "name": "SchemaDocs MySQL example",
+            "connection": "mysql://root:5051@localhost/schema_docs_mysql_example",
+            "erd": true,
+            "ignoreTables": [
+                "ignored_table"
+            ]
+        }
+    ],
+	"templaters": [
+        "html",
+		"json",
+		"md",
+		"confluence-wiki",
+		"confluence-storage"
+    ],
+
+    "output": "./docs"
+}

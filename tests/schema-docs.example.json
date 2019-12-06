@@ -1,0 +1,19 @@
+{
+	"databases": [
+        {
+            "name": "Test DB",
+            "connection": "mysql://root:root@localhost/testdb",
+            "erd": true,
+            "ignoreTable": [
+                "_migrations"
+            ]
+        }
+    ],
+	"templaters": [
+        "md",
+        "html",
+        "json",
+        "confluence-storage"
+    ],
+    "output": "./schema-docs"
+}

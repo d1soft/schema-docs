@@ -1,0 +1,17 @@
+[countries] {bgcolor: "#ececfc"}
+*id {label: "tinyint(1) - Country identificator"}
+name {label: "varchar(255) - Country full name"}
+flag_icon {label: "varchar(255) - Country icon url"}
+code {label: "varchar(3) - ISO-code 3-letters"}
+
+[statistic] {bgcolor: "#ececfc"}
+*date {label: "date - Date of stats"}
+registered_users {label: "int(10) - Total users registered count"}
+
+[users] {bgcolor: "#ececfc"}
+*id {label: "int(11), auto_increment"}
+email {label: "varchar(255) - User email adress (unique)"}
+phone {label: "varchar(255) - User phone number (unique)"}
++country_id {label: "tinyint(1) - Country identificator"}
+
+users *--1 countries {label: "user_country"}

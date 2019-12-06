@@ -1,0 +1,531 @@
+<html>
+	<head>
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/mono-blue.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/sql.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+		<style>
+            body {
+                font-family: 'Lato', sans-serif;
+            }
+
+            .layout {
+                width: 100%; 
+                margin: auto;
+                float: left;
+			}
+
+            .sidebar, .content {
+                float: left;
+            }
+
+			.sidebar {
+                background: #0B2A3E;
+                width: 18%;
+                height: 100%;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                overflow-y: auto;
+                color: #e6e6e6;
+			}
+
+			.content {
+                width: 80%;
+                margin-left: 19%;
+			}
+
+            .sidebar-header {
+                padding-left: 15px;
+                color: #e6e6e6;
+            }
+
+            .sidebar-list {
+                list-style: none;
+                padding-inline-start: 15px;
+            }
+
+            .sidebar-item {
+                padding-top: 3px;
+                display: block;
+                text-decoration: none;
+                color: #e6e6e6;
+            }
+
+            .sidebar-item:focus {
+                color: #bebaba;
+            }
+
+            .sidebar-item:active {
+                color: #bebaba;
+            }
+            
+            table.nice-table {
+                border: 1px solid #000000;
+                background-color: #FDFDFD;
+                width: 100%;
+                text-align: left;
+                border-collapse: collapse;
+            }
+
+            table.nice-table td, table.blueTable th {
+                border: 1px solid #AAAAAA;
+                padding: 3px 2px;
+            }
+
+            table.nice-table tbody td {
+                font-size: 13px;
+                color: #333333;
+            }
+
+            table.nice-table tr:nth-child(even) {
+                background: #D0E4F5;
+            }
+
+            table.nice-table thead {
+                background: #0B2A3E;
+                border-bottom: 2px solid #444444;
+            }
+
+            table.nice-table thead th {
+                font-size: 14px;
+                font-weight: bold;
+                color: #FFFFFF;
+                text-align: left;
+                border-left: 0px solid #AEAEAE;
+            }
+
+            table.nice-table thead th:first-child {
+                border-left: none;
+            }
+            
+		</style>
+	</head>
+	<body>
+        <div class="layout">
+            <div class="sidebar">
+                        <h3 class="sidebar-header">Tables</h3>
+                        <ul class="sidebar-list">
+                                <li><a class="sidebar-item" href="#table-countries">countries</a></li>
+                                <li><a class="sidebar-item" href="#table-statistic">statistic</a></li>
+                                <li><a class="sidebar-item" href="#table-users">users</a></li>
+                        </ul>
+                        <h3 class="sidebar-header">Routines</h3>
+                        <ul class="sidebar-list">
+                                <li><a class="sidebar-item" href="#procedure-update_statistic">update_statistic</a></li>
+                        </ul>
+            </div>
+            <div class="content">
+                <div>
+                    <h1>SchemaDocs MySQL example</h1>
+                    <p>
+                        <h2>Variables</h2>
+                        <div><b>Database name</b>: schema_docs_mysql_example</div>
+                            <div><b>Port</b>: 33062</div>
+                            <div><b>Charset</b>: utf8mb4</div>
+                            <div><b>Collation</b>: utf8mb4_0900_ai_ci</div>
+                            <div><b>Connection timeout</b>: 10</div>
+                            <div><b>Timezone</b>: SYSTEM</div>
+                            <div><b>MySQL version</b>: 8.0.18</div>
+                    </p>
+                </div>
+                    <h2 id="tables">Tables</h2>
+                        <div id="table-countries" class="table-info">
+                            <h3>countries</h3>
+                            <p>
+                                <div>Countries info</div>
+                                <div><b>Engine</b>: InnoDB</div>
+                                <div><b>Charset</b>: utf8mb4_0900_ai_ci</div>
+                                <div><b>Created at</b>: 21.12.2019 23:03:01.000</div>
+                            </p>
+                                <p><pre><code class="sql">CREATE TABLE `countries` (
+  `id` tinyint(1) NOT NULL COMMENT 'Country identificator',
+  `name` varchar(255) DEFAULT NULL COMMENT 'Country full name',
+  `flag_icon` varchar(255) DEFAULT NULL COMMENT 'Country icon url',
+  `code` varchar(3) NOT NULL COMMENT 'ISO-code 3-letters',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `code_UNIQUE` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Countries info'</code></pre></p>
+                                <h4>Columns</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Modificators</th>
+                                            <th>Nullable</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>id</td>
+                                        <td>tinyint(1)</td>
+                                        <td></td>
+                                        <td>false</td>
+                                        <td></td>
+                                        <td>Country identificator</td>
+                                    </tr>
+                                    <tr>
+                                        <td>name</td>
+                                        <td>varchar(255)</td>
+                                        <td></td>
+                                        <td>true</td>
+                                        <td></td>
+                                        <td>Country full name</td>
+                                    </tr>
+                                    <tr>
+                                        <td>flag_icon</td>
+                                        <td>varchar(255)</td>
+                                        <td></td>
+                                        <td>true</td>
+                                        <td></td>
+                                        <td>Country icon url</td>
+                                    </tr>
+                                    <tr>
+                                        <td>code</td>
+                                        <td>varchar(3)</td>
+                                        <td></td>
+                                        <td>false</td>
+                                        <td></td>
+                                        <td>ISO-code 3-letters</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <h4>Indexes</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Columns</th>
+                                            <th>Type</th>
+                                            <th>Uniqie</th>
+                                            <th>Visible</th>
+                                            <th>Order</th>
+                                            <th>Nullable</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>code_UNIQUE</td>
+                                        <td>code</td>
+                                        <td>BTREE</td>
+                                        <td>true</td>
+                                        <td>true</td>
+                                        <td>ASC</td>
+                                        <td>false</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>id_UNIQUE</td>
+                                        <td>id</td>
+                                        <td>BTREE</td>
+                                        <td>true</td>
+                                        <td>true</td>
+                                        <td>ASC</td>
+                                        <td>false</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>PRIMARY</td>
+                                        <td>id</td>
+                                        <td>BTREE</td>
+                                        <td>true</td>
+                                        <td>true</td>
+                                        <td>ASC</td>
+                                        <td>false</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <h4>Foreign keys</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Table</th>
+                                            <th>Columns</th>
+                                            <th>Referenced table</th>
+                                            <th>Referenced columns</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>user_country</td>
+                                                <td><a href="#table-users">users</a></td>
+                                                <td>country_id</td>
+                                                <td><a href="#table-countries">countries</a></td>
+                                                <td>id</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+
+                            </br>
+                            <a href="#tables">Наверх</a>
+                            <hr>
+                        </div>
+                        <div id="table-statistic" class="table-info">
+                            <h3>statistic</h3>
+                            <p>
+                                <div>Statistic metrics values</div>
+                                <div><b>Engine</b>: InnoDB</div>
+                                <div><b>Charset</b>: utf8mb4_0900_ai_ci</div>
+                                <div><b>Created at</b>: 21.12.2019 23:06:16.000</div>
+                            </p>
+                                <p><pre><code class="sql">CREATE TABLE `statistic` (
+  `date` date NOT NULL COMMENT 'Date of stats',
+  `registered_users` int(10) DEFAULT '0' COMMENT 'Total users registered count',
+  PRIMARY KEY (`date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Statistic metrics values'</code></pre></p>
+                                <h4>Columns</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Modificators</th>
+                                            <th>Nullable</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>date</td>
+                                        <td>date</td>
+                                        <td></td>
+                                        <td>false</td>
+                                        <td></td>
+                                        <td>Date of stats</td>
+                                    </tr>
+                                    <tr>
+                                        <td>registered_users</td>
+                                        <td>int(10)</td>
+                                        <td></td>
+                                        <td>true</td>
+                                        <td>0</td>
+                                        <td>Total users registered count</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <h4>Indexes</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Columns</th>
+                                            <th>Type</th>
+                                            <th>Uniqie</th>
+                                            <th>Visible</th>
+                                            <th>Order</th>
+                                            <th>Nullable</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>PRIMARY</td>
+                                        <td>date</td>
+                                        <td>BTREE</td>
+                                        <td>true</td>
+                                        <td>true</td>
+                                        <td>ASC</td>
+                                        <td>false</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </br>
+                            <a href="#tables">Наверх</a>
+                            <hr>
+                        </div>
+                        <div id="table-users" class="table-info">
+                            <h3>users</h3>
+                            <p>
+                                <div>Users info</div>
+                                <div><b>Engine</b>: InnoDB</div>
+                                <div><b>Charset</b>: utf8mb4_0900_ai_ci</div>
+                                <div><b>Created at</b>: 21.12.2019 23:04:12.000</div>
+                            </p>
+                                <p><pre><code class="sql">CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL COMMENT 'User email adress (unique)',
+  `phone` varchar(255) DEFAULT NULL COMMENT 'User phone number (unique)',
+  `country_id` tinyint(1) DEFAULT NULL COMMENT 'Country identificator',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `phone_UNIQUE` (`phone`),
+  KEY `user_country_idx` (`country_id`),
+  CONSTRAINT `user_country` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Users info'</code></pre></p>
+                                <h4>Columns</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Modificators</th>
+                                            <th>Nullable</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>id</td>
+                                        <td>int(11)</td>
+                                        <td>auto_increment</td>
+                                        <td>false</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>email</td>
+                                        <td>varchar(255)</td>
+                                        <td></td>
+                                        <td>false</td>
+                                        <td></td>
+                                        <td>User email adress (unique)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>phone</td>
+                                        <td>varchar(255)</td>
+                                        <td></td>
+                                        <td>true</td>
+                                        <td></td>
+                                        <td>User phone number (unique)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>country_id</td>
+                                        <td>tinyint(1)</td>
+                                        <td></td>
+                                        <td>true</td>
+                                        <td></td>
+                                        <td>Country identificator</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <h4>Indexes</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Columns</th>
+                                            <th>Type</th>
+                                            <th>Uniqie</th>
+                                            <th>Visible</th>
+                                            <th>Order</th>
+                                            <th>Nullable</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>email_UNIQUE</td>
+                                        <td>email</td>
+                                        <td>BTREE</td>
+                                        <td>true</td>
+                                        <td>true</td>
+                                        <td>ASC</td>
+                                        <td>false</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>id_UNIQUE</td>
+                                        <td>id</td>
+                                        <td>BTREE</td>
+                                        <td>true</td>
+                                        <td>true</td>
+                                        <td>ASC</td>
+                                        <td>false</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>phone_UNIQUE</td>
+                                        <td>phone</td>
+                                        <td>BTREE</td>
+                                        <td>true</td>
+                                        <td>true</td>
+                                        <td>ASC</td>
+                                        <td>true</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>PRIMARY</td>
+                                        <td>id</td>
+                                        <td>BTREE</td>
+                                        <td>true</td>
+                                        <td>true</td>
+                                        <td>ASC</td>
+                                        <td>false</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>user_country_idx</td>
+                                        <td>country_id</td>
+                                        <td>BTREE</td>
+                                        <td>false</td>
+                                        <td>true</td>
+                                        <td>ASC</td>
+                                        <td>true</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <h4>Foreign keys</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Table</th>
+                                            <th>Columns</th>
+                                            <th>Referenced table</th>
+                                            <th>Referenced columns</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>user_country</td>
+                                                <td><a href="#table-users">users</a></td>
+                                                <td>country_id</td>
+                                                <td><a href="#table-countries">countries</a></td>
+                                                <td>id</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+
+                            </br>
+                            <a href="#tables">Наверх</a>
+                            <hr>
+                        </div>
+                    
+
+                    <h2 id="procedures">Stored functions and procedures</h2>
+                        <div id="procedure-update_statistic" class="procedure-info">
+                            <h3>update_statistic</h3>
+                            <p></p>
+                            
+                            <p>Routine body:</p>
+                            <p>
+                                <code><pre>BEGIN
+	SET @users_count := (SELECT COUNT(*) FROM `users`);
+	INSERT INTO `statistic` (`date`, `registered_users`) VALUES (DATE(NOW()), @users_count);
+END</pre></code>
+                            </p>
+                            </br>
+                            <a href="#procedures">Наверх</a>
+                        </div>
+            </div>
+        </div>
+	</body>
+</html>

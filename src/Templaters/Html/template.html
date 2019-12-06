@@ -1,0 +1,330 @@
+<html>
+	<head>
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/mono-blue.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/sql.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+		<style>
+            body {
+                font-family: 'Lato', sans-serif;
+            }
+
+            .layout {
+                width: 100%; 
+                margin: auto;
+                float: left;
+			}
+
+            .sidebar, .content {
+                float: left;
+            }
+
+			.sidebar {
+                background: #0B2A3E;
+                width: 18%;
+                height: 100%;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                overflow-y: auto;
+                color: #e6e6e6;
+			}
+
+			.content {
+                width: 80%;
+                margin-left: 19%;
+			}
+
+            .sidebar-header {
+                padding-left: 15px;
+                color: #e6e6e6;
+            }
+
+            .sidebar-list {
+                list-style: none;
+                padding-inline-start: 15px;
+            }
+
+            .sidebar-item {
+                padding-top: 3px;
+                display: block;
+                text-decoration: none;
+                color: #e6e6e6;
+            }
+
+            .sidebar-item:focus {
+                color: #bebaba;
+            }
+
+            .sidebar-item:active {
+                color: #bebaba;
+            }
+            
+            table.nice-table {
+                border: 1px solid #000000;
+                background-color: #FDFDFD;
+                width: 100%;
+                text-align: left;
+                border-collapse: collapse;
+            }
+
+            table.nice-table td, table.blueTable th {
+                border: 1px solid #AAAAAA;
+                padding: 3px 2px;
+            }
+
+            table.nice-table tbody td {
+                font-size: 13px;
+                color: #333333;
+            }
+
+            table.nice-table tr:nth-child(even) {
+                background: #D0E4F5;
+            }
+
+            table.nice-table thead {
+                background: #0B2A3E;
+                border-bottom: 2px solid #444444;
+            }
+
+            table.nice-table thead th {
+                font-size: 14px;
+                font-weight: bold;
+                color: #FFFFFF;
+                text-align: left;
+                border-left: 0px solid #AEAEAE;
+            }
+
+            table.nice-table thead th:first-child {
+                border-left: none;
+            }
+            
+		</style>
+	</head>
+	<body>
+        <div class="layout">
+            <div class="sidebar">
+                {{#tocItems}}
+                    {{#tables.length}}
+                        <h3 class="sidebar-header">Tables</h3>
+                        <ul class="sidebar-list">
+                            {{#tables}}
+                                <li><a class="sidebar-item" href="#table-{{{name}}}">{{{name}}}</a></li>
+                            {{/tables}}
+                        </ul>
+                    {{/tables.length}}
+                    {{#procedures.length}}
+                        <h3 class="sidebar-header">Routines</h3>
+                        <ul class="sidebar-list">
+                            {{#procedures}}
+                                <li><a class="sidebar-item" href="#procedure-{{{name}}}">{{{name}}}</a></li>
+                            {{/procedures}}
+                        </ul>
+                    {{/procedures.length}}
+                    {{#events.length}}
+                        <h3 class="sidebar-header">Events</h3>
+                        <ul class="sidebar-list">
+                            {{#events}}
+                                <li><a class="sidebar-item" href="#event-{{{name}}}">{{{name}}}</a></li>
+                            {{/events}}
+                        </ul>
+                    {{/events.length}}
+                {{/tocItems}}
+            </div>
+            <div class="content">
+                <div>
+                    <h1>{{{tocItems.connectionName}}}</h1>
+                    <p>
+                        <h2>Variables</h2>
+                        <div><b>Database name</b>: {{{tocItems.databaseName}}}</div>
+                        {{#tocItems.vars}}
+                            <div><b>{{{description}}}</b>: {{{value}}}</div>
+                        {{/tocItems.vars}}
+                    </p>
+                </div>
+                {{#tocItems}}
+                    {{#tables.length}}<h2 id="tables">Tables</h2>{{/tables.length}}
+                    {{#tables}}
+                        <div id="table-{{{name}}}" class="table-info">
+                            <h3>{{{name}}}</h3>
+                            <p>
+                                {{#comment}}<div>{{{comment}}}</div>{{/comment}}
+                                {{#engine}}<div><b>Engine</b>: {{{engine}}}</div>{{/engine}}
+                                {{#collation}}<div><b>Charset</b>: {{{collation}}}</div>{{/collation}}
+                                {{#createdAt}}<div><b>Created at</b>: {{{createdAt}}}</div>{{/createdAt}}
+                            </p>
+                            {{#ddl}}
+                                <p><pre><code class="sql">{{{ddl}}}</code></pre></p>
+                            {{/ddl}}
+                            {{#columns.length}}
+                                <h4>Columns</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Modificators</th>
+                                            <th>Nullable</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            {{/columns.length}}
+                            {{#columns}}
+                                    <tr>
+                                        <td>{{{name}}}</td>
+                                        <td>{{{type}}}</td>
+                                        <td>{{{extra}}}</td>
+                                        <td>{{{nullable}}}</td>
+                                        <td>{{{default}}}</td>
+                                        <td>{{{comment}}}</td>
+                                    </tr>
+                            {{/columns}}
+                            {{#columns.length}}
+                                    </tbody>
+                                </table>
+                            {{/columns.length}}
+                            {{#indexes.length}}
+                                <h4>Indexes</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Columns</th>
+                                            <th>Type</th>
+                                            <th>Uniqie</th>
+                                            <th>Visible</th>
+                                            <th>Order</th>
+                                            <th>Nullable</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                {{#indexes}}
+                                    <tr>
+                                        <td>{{{name}}}</td>
+                                        <td>{{{columns}}}</td>
+                                        <td>{{{type}}}</td>
+                                        <td>{{{uniqie}}}</td>
+                                        <td>{{{visible}}}</td>
+                                        <td>{{{order}}}</td>
+                                        <td>{{{nullable}}}</td>
+                                        <td>{{{comment}}}</td>
+                                    </tr>
+                                {{/indexes}}
+                                    </tbody>
+                                </table>
+                            {{/indexes.length}}
+
+                            {{#foreigns.length}}
+                                <h4>Foreign keys</h4>
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Table</th>
+                                            <th>Columns</th>
+                                            <th>Referenced table</th>
+                                            <th>Referenced columns</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#foreigns}}
+                                            <tr>
+                                                <td>{{{name}}}</td>
+                                                <td><a href="#table-{{{table}}}">{{{table}}}</a></td>
+                                                <td>{{{columns}}}</td>
+                                                <td><a href="#table-{{{tableRef}}}">{{{tableRef}}}</a></td>
+                                                <td>{{{columnsRef}}}</td>
+                                            </tr>
+                                    {{/foreigns}}
+                                    </tbody>
+                                </table>
+                            {{/foreigns.length}}
+
+                            {{#triggers.length}}
+                                <h4>Triggers</h4>
+                                {{#triggers}}
+                                <h5>{{{name}}}</h5>
+                                {{#comment}}<p>{{{comment}}}</p>{{/comment}}
+                                {{#ddl}}
+                                <p><pre><code>{{{ddl}}}</code></pre></p>
+                                {{/ddl}}
+                                <table class="nice-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Action</th>
+                                            <th>Timing</th>
+                                            <th>Charset</th>
+                                            <th>Created at</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>{{{action}}}</td>
+                                                <td>{{{timing}}}</td>
+                                                <td>{{{collation}}}</td>
+                                                <td>{{{createdAt}}}</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                                {{/triggers}}
+                            {{/triggers.length}}
+                            </br>
+                            <a href="#tables">Наверх</a>
+                            <hr>
+                        </div>
+                    {{/tables}}
+                    {{#events.length}}<h2 id="events">Events</h2>{{/events.length}}
+                    {{#events}}
+                        <div id="event-{{{name}}}" class="event-info">
+                            <h3>{{{name}}}</h3>
+                            <p>
+                                {{#comment}}<div>{{{comment}}}</div>{{/comment}}
+                                {{#collation}}<div><b>Charset</b>: {{{collation}}}</div>{{/collation}}
+                                {{#createdAt}}<div><b>Created at</b>: {{{createdAt}}}</div>{{/createdAt}}
+                                {{#alteredAt}}<div><b>Updated at</b>: {{{alteredAt}}}</div>{{/alteredAt}}
+                                {{#lastExecutedAt}}<div><b>Last executed at</b>: {{{lastExecutedAt}}}</div>{{/lastExecutedAt}}
+                                {{#startsAt}}<div><b>Starts at</b>: {{{startsAt}}}</div>{{/startsAt}}
+                                {{#endsAt}}<div><b>Ends at</b>: {{{endsAt}}}</div>{{/endsAt}}
+                                {{#executeAt}}<div><b>Execute at</b>: {{{executeAt}}}</div>{{/executeAt}}
+                                {{#interval}}<div><b>Interval</b>: {{{interval}}}</div>{{/interval}}
+                                {{#intervalValue}}<div><b>Interval value</b>: {{{intervalValue}}}</div>{{/intervalValue}}
+                                {{#status}}<div><b>Status</b>: {{{status}}}</div>{{/status}}
+                            </p>
+                            {{#ddl}}
+                                <p>
+                                    <code><pre>{{{ddl}}}</pre></code>
+                                </p>
+                            {{/ddl}}
+                            <p>Event body:</p>
+                            <p>
+                                <code><pre>{{{body}}}</pre></code>
+                            </p>
+                            </br>
+                            <a href="#events">Наверх</a>
+                        </div>
+                    {{/events}}
+
+                    {{#procedures.length}}<h2 id="procedures">Stored functions and procedures</h2>{{/procedures.length}}
+                    {{#procedures}}
+                        <div id="procedure-{{{name}}}" class="procedure-info">
+                            <h3>{{{name}}}</h3>
+                            <p>{{{comment}}}</p>
+                            {{#returns}}<p>Returns: {{{returns}}}</p> {{/returns}}
+                            <p>Routine body:</p>
+                            <p>
+                                <code><pre>{{{body}}}</pre></code>
+                            </p>
+                            </br>
+                            <a href="#procedures">Наверх</a>
+                        </div>
+                    {{/procedures}}
+                {{/tocItems}}
+            </div>
+        </div>
+	</body>
+</html>

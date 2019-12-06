@@ -1,0 +1,76 @@
+{
+  "name": "schema-docs",
+  "version": "0.9.0",
+  "description": "Generates docs and ERD from database schema (using comments for description) in various templates (md, html, confluence-editor, confluence-wiki). Supported mysql. ",
+  "main": "./lib/index.js",
+  "bin": {
+    "schema-docs": "./bin/schema-docs"
+  },
+  "scripts": {
+    "install": "yarn run build",
+    "build": "tsc -p . && yarn run copyfiles",
+    "copyfiles": "copyfiles -u 1 ./src/Templaters/**/*.md ./src/Templaters/**/*.mdc ./src/Templaters/**/*.html ./src/Templaters/**/*.htmlc ./lib/",
+    "dev": "nodemon --exec ./node_modules/.bin/ts-node ./src/index.ts",
+    "tests": "jest -c ./jest.config.js",
+    "tslint": "tslint -c ./tslint.json 'src/**/*.ts'",
+    "tslint:check": "tslint-config-prettier-check ./tslint.json",
+    "prettier:base": "prettier --parser typescript --single-quote",
+    "prettier:check": "yarn run prettier:base --list-different \"src/**/*.{ts,tsx}\"",
+    "prettier:write": "yarn run prettier:base --write \"src/**/*.{ts,tsx}\""
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules/*",
+      "lib/*",
+      "schema-docs/*",
+      "examples/*"
+    ],
+    "delay": "2500"
+  },
+  "author": "d1soft",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.7.4",
+    "@types/command-line-args": "5.0.0",
+    "@types/commander": "2.12.2",
+    "@types/dotenv": "8.2.0",
+    "@types/jest": "24.0.23",
+    "@types/mustache": "0.8.32",
+    "@types/mysql2": "types/mysql2",
+    "@types/node": "^12.12.12",
+    "@types/signale": "1.2.1",
+    "@types/sqlite3": "3.1.5",
+    "jest": "24.9.0",
+    "nodemon": "2.0.1",
+    "nyc": "14.1.1",
+    "prettier": "1.19.1",
+    "ts-jest": "24.2.0",
+    "ts-node": "8.5.2",
+    "tslint": "5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typedoc": "0.15.4",
+    "typescript": "3.7.2"
+  },
+  "dependencies": {
+    "commander": "4.0.1",
+    "copyfiles": "2.1.1",
+    "cross-env": "6.0.3",
+    "dotenv": "8.2.0",
+    "envfile": "4.4.0",
+    "moment": "2.24.0",
+    "mustache": "3.1.0",
+    "mysql2": "2.0.2",
+    "signale": "1.4.0"
+  },
+  "peerDependenciesMeta": {
+    "mysql": {
+      "optional": true
+    },
+    "mysql2": {
+      "optional": true
+    },
+    "sqlite3": {
+      "optional": true
+    }
+  }
+}

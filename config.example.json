@@ -1,0 +1,47 @@
+{
+	"databases": [
+        {
+            "name": "databaseOne",
+            "connection": "mysql://connection",
+            "erd": true,
+            "ignoreTables": [
+                "_migrations"
+            ]
+        }, 
+        {
+            "name": "databaseTwo",
+            "envConfig": {
+                "path": "",
+                "connection": "mysq://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+            },
+            "erd": true,
+            "ignoreTables": [
+                "_migrations"
+            ]
+        }, 
+        {
+            "name": "databaseThree",
+            "jsonConfig": {
+                "path": "path/to/config.json",
+                "connection": "mysql://{database.user}:{database.password}"
+            },
+            "erd": true,
+            "ignoreTables": [
+                "_migrations"
+            ]
+        }
+    ],
+	"templaters": [
+        {
+            "html": {
+                "template": "path/to/template"
+            }
+        },
+		"json",
+		"md",
+		"confluence-wiki",
+		"confluence-store"
+    ],
+
+    "output": "/path/to/save"
+}

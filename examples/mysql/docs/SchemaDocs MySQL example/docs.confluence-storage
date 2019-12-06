@@ -1,0 +1,500 @@
+<h1>SchemaDocs MySQL example</h1>
+<h2>Variables</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><b>Database name:</b></td>
+            <td>schema_docs_mysql_example</td>
+        </tr>
+        <tr>
+            <td><b>Port</b></td>
+            <td>33062</td>
+        </tr>
+        <tr>
+            <td><b>Charset</b></td>
+            <td>utf8mb4</td>
+        </tr>
+        <tr>
+            <td><b>Collation</b></td>
+            <td>utf8mb4_0900_ai_ci</td>
+        </tr>
+        <tr>
+            <td><b>Connection timeout</b></td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td><b>Timezone</b></td>
+            <td>SYSTEM</td>
+        </tr>
+        <tr>
+            <td><b>MySQL version</b></td>
+            <td>8.0.18</td>
+        </tr>
+    </tbody>
+</table>    
+<h2>Table of contents</h2>
+    <ul>
+        <li>Tables</li>
+        <ul>
+                <li>
+                    <ac:link ac:anchor="table-countries">
+                        <ac:plain-text-link-body>
+                          <![CDATA[countries]]>
+                        </ac:plain-text-link-body>
+                      </ac:link>
+                </li>
+                <li>
+                    <ac:link ac:anchor="table-statistic">
+                        <ac:plain-text-link-body>
+                          <![CDATA[statistic]]>
+                        </ac:plain-text-link-body>
+                      </ac:link>
+                </li>
+                <li>
+                    <ac:link ac:anchor="table-users">
+                        <ac:plain-text-link-body>
+                          <![CDATA[users]]>
+                        </ac:plain-text-link-body>
+                      </ac:link>
+                </li>
+        </ul>
+        <li>Stored procdures and functions</li>
+        <ul>
+                <li>
+                    <ac:link ac:anchor="routine-update_statistic">
+                        <ac:plain-text-link-body>
+                          <![CDATA[update_statistic]]>
+                        </ac:plain-text-link-body>
+                      </ac:link>
+                </li>
+        </ul>
+    </ul>
+    <h2>Tables</h2>
+    <ac:structured-macro ac:name="anchor">
+        <ac:parameter ac:name="">table-countries</ac:parameter>
+    </ac:structured-macro>
+    <h3>countries</h3>
+        <div>
+            <div>Countries info</div>
+            <div><b>Engine</b>: InnoDB</div>
+            <div><b>Charset</b>: utf8mb4_0900_ai_ci</div>
+            <div><b>Created at</b>: 21.12.2019 23:03:01.000</div>
+        </div>
+            <ac:structured-macro ac:name="code">
+                <ac:parameter ac:name="title">DDL of countries</ac:parameter>
+                <ac:parameter ac:name="language">sql</ac:parameter>
+                <ac:parameter ac:name="collapse">true</ac:parameter>
+                <ac:plain-text-body><![CDATA[CREATE TABLE `countries` (
+  `id` tinyint(1) NOT NULL COMMENT 'Country identificator',
+  `name` varchar(255) DEFAULT NULL COMMENT 'Country full name',
+  `flag_icon` varchar(255) DEFAULT NULL COMMENT 'Country icon url',
+  `code` varchar(3) NOT NULL COMMENT 'ISO-code 3-letters',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `code_UNIQUE` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Countries info']]></ac:plain-text-body>
+            </ac:structured-macro>
+        <h4>Columns</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Modificators</th>
+                        <th>Nullable</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>tinyint(1)</td>
+                    <td></td>
+                    <td>false</td>
+                    <td></td>
+                    <td>Country identificator</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>varchar(255)</td>
+                    <td></td>
+                    <td>true</td>
+                    <td></td>
+                    <td>Country full name</td>
+                </tr>
+                <tr>
+                    <td>flag_icon</td>
+                    <td>varchar(255)</td>
+                    <td></td>
+                    <td>true</td>
+                    <td></td>
+                    <td>Country icon url</td>
+                </tr>
+                <tr>
+                    <td>code</td>
+                    <td>varchar(3)</td>
+                    <td></td>
+                    <td>false</td>
+                    <td></td>
+                    <td>ISO-code 3-letters</td>
+                </tr>
+                </tbody>
+            </table>
+        <h4>Indexes</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Columns</th>
+                        <th>Type</th>
+                        <th>Uniqie</th>
+                        <th>Visible</th>
+                        <th>Order</th>
+                        <th>Nullable</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>code_UNIQUE</td>
+                    <td>code</td>
+                    <td>BTREE</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>ASC</td>
+                    <td>false</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>id_UNIQUE</td>
+                    <td>id</td>
+                    <td>BTREE</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>ASC</td>
+                    <td>false</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>PRIMARY</td>
+                    <td>id</td>
+                    <td>BTREE</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>ASC</td>
+                    <td>false</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <h4>Foreign keys</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Table</th>
+                        <th>Columns</th>
+                        <th>Referenced table</th>
+                        <th>Referenced columns</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>user_country</td>
+                        <td>
+                            <ac:link ac:anchor="table-users">
+                                <ac:plain-text-link-body>
+                                  <![CDATA[users]]>
+                                </ac:plain-text-link-body>
+                              </ac:link>
+                        </td>
+                        <td>country_id</td>
+                        <td>
+                            <ac:link ac:anchor="table-countries">
+                                <ac:plain-text-link-body>
+                                    <![CDATA[countries]]>
+                                </ac:plain-text-link-body>
+                            </ac:link>
+                        </td>
+                        <td>id</td>
+                    </tr>
+                </tbody>
+            </table>
+        <hr />
+    <ac:structured-macro ac:name="anchor">
+        <ac:parameter ac:name="">table-statistic</ac:parameter>
+    </ac:structured-macro>
+    <h3>statistic</h3>
+        <div>
+            <div>Statistic metrics values</div>
+            <div><b>Engine</b>: InnoDB</div>
+            <div><b>Charset</b>: utf8mb4_0900_ai_ci</div>
+            <div><b>Created at</b>: 21.12.2019 23:06:16.000</div>
+        </div>
+            <ac:structured-macro ac:name="code">
+                <ac:parameter ac:name="title">DDL of statistic</ac:parameter>
+                <ac:parameter ac:name="language">sql</ac:parameter>
+                <ac:parameter ac:name="collapse">true</ac:parameter>
+                <ac:plain-text-body><![CDATA[CREATE TABLE `statistic` (
+  `date` date NOT NULL COMMENT 'Date of stats',
+  `registered_users` int(10) DEFAULT '0' COMMENT 'Total users registered count',
+  PRIMARY KEY (`date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Statistic metrics values']]></ac:plain-text-body>
+            </ac:structured-macro>
+        <h4>Columns</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Modificators</th>
+                        <th>Nullable</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>date</td>
+                    <td>date</td>
+                    <td></td>
+                    <td>false</td>
+                    <td></td>
+                    <td>Date of stats</td>
+                </tr>
+                <tr>
+                    <td>registered_users</td>
+                    <td>int(10)</td>
+                    <td></td>
+                    <td>true</td>
+                    <td>0</td>
+                    <td>Total users registered count</td>
+                </tr>
+                </tbody>
+            </table>
+        <h4>Indexes</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Columns</th>
+                        <th>Type</th>
+                        <th>Uniqie</th>
+                        <th>Visible</th>
+                        <th>Order</th>
+                        <th>Nullable</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>PRIMARY</td>
+                    <td>date</td>
+                    <td>BTREE</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>ASC</td>
+                    <td>false</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        <hr />
+    <ac:structured-macro ac:name="anchor">
+        <ac:parameter ac:name="">table-users</ac:parameter>
+    </ac:structured-macro>
+    <h3>users</h3>
+        <div>
+            <div>Users info</div>
+            <div><b>Engine</b>: InnoDB</div>
+            <div><b>Charset</b>: utf8mb4_0900_ai_ci</div>
+            <div><b>Created at</b>: 21.12.2019 23:04:12.000</div>
+        </div>
+            <ac:structured-macro ac:name="code">
+                <ac:parameter ac:name="title">DDL of users</ac:parameter>
+                <ac:parameter ac:name="language">sql</ac:parameter>
+                <ac:parameter ac:name="collapse">true</ac:parameter>
+                <ac:plain-text-body><![CDATA[CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL COMMENT 'User email adress (unique)',
+  `phone` varchar(255) DEFAULT NULL COMMENT 'User phone number (unique)',
+  `country_id` tinyint(1) DEFAULT NULL COMMENT 'Country identificator',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `phone_UNIQUE` (`phone`),
+  KEY `user_country_idx` (`country_id`),
+  CONSTRAINT `user_country` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Users info']]></ac:plain-text-body>
+            </ac:structured-macro>
+        <h4>Columns</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Modificators</th>
+                        <th>Nullable</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>int(11)</td>
+                    <td>auto_increment</td>
+                    <td>false</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>varchar(255)</td>
+                    <td></td>
+                    <td>false</td>
+                    <td></td>
+                    <td>User email adress (unique)</td>
+                </tr>
+                <tr>
+                    <td>phone</td>
+                    <td>varchar(255)</td>
+                    <td></td>
+                    <td>true</td>
+                    <td></td>
+                    <td>User phone number (unique)</td>
+                </tr>
+                <tr>
+                    <td>country_id</td>
+                    <td>tinyint(1)</td>
+                    <td></td>
+                    <td>true</td>
+                    <td></td>
+                    <td>Country identificator</td>
+                </tr>
+                </tbody>
+            </table>
+        <h4>Indexes</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Columns</th>
+                        <th>Type</th>
+                        <th>Uniqie</th>
+                        <th>Visible</th>
+                        <th>Order</th>
+                        <th>Nullable</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>email_UNIQUE</td>
+                    <td>email</td>
+                    <td>BTREE</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>ASC</td>
+                    <td>false</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>id_UNIQUE</td>
+                    <td>id</td>
+                    <td>BTREE</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>ASC</td>
+                    <td>false</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>phone_UNIQUE</td>
+                    <td>phone</td>
+                    <td>BTREE</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>ASC</td>
+                    <td>true</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>PRIMARY</td>
+                    <td>id</td>
+                    <td>BTREE</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>ASC</td>
+                    <td>false</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>user_country_idx</td>
+                    <td>country_id</td>
+                    <td>BTREE</td>
+                    <td>false</td>
+                    <td>true</td>
+                    <td>ASC</td>
+                    <td>true</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <h4>Foreign keys</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Table</th>
+                        <th>Columns</th>
+                        <th>Referenced table</th>
+                        <th>Referenced columns</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>user_country</td>
+                        <td>
+                            <ac:link ac:anchor="table-users">
+                                <ac:plain-text-link-body>
+                                  <![CDATA[users]]>
+                                </ac:plain-text-link-body>
+                              </ac:link>
+                        </td>
+                        <td>country_id</td>
+                        <td>
+                            <ac:link ac:anchor="table-countries">
+                                <ac:plain-text-link-body>
+                                    <![CDATA[countries]]>
+                                </ac:plain-text-link-body>
+                            </ac:link>
+                        </td>
+                        <td>id</td>
+                    </tr>
+                </tbody>
+            </table>
+        <hr />
+    <h2>Stored procedures and functions</h2>
+        <ac:structured-macro ac:name="anchor">
+            <ac:parameter ac:name="">routine-update_statistic</ac:parameter>
+        </ac:structured-macro>
+        <h3>update_statistic</h3>
+        <div><p></p></div>
+        
+        <ac:structured-macro ac:name="code">
+            <ac:parameter ac:name="title">Body of update_statistic</ac:parameter>
+            <ac:parameter ac:name="language">sql</ac:parameter>
+            <ac:parameter ac:name="collapse">true</ac:parameter>
+            <ac:plain-text-body><![CDATA[BEGIN
+	SET @users_count := (SELECT COUNT(*) FROM `users`);
+	INSERT INTO `statistic` (`date`, `registered_users`) VALUES (DATE(NOW()), @users_count);
+END]]></ac:plain-text-body>
+        </ac:structured-macro>

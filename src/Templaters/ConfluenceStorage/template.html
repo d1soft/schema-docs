@@ -1,0 +1,280 @@
+<h1>{{{tocItems.connectionName}}}</h1>
+<h2>Variables</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><b>Database name:</b></td>
+            <td>{{{tocItems.databaseName}}}</td>
+        </tr>
+        {{#tocItems.vars}}
+        <tr>
+            <td><b>{{{description}}}</b></td>
+            <td>{{{value}}}</td>
+        </tr>
+        {{/tocItems.vars}}
+    </tbody>
+</table>    
+<h2>Table of contents</h2>
+{{#tocItems}}
+    <ul>
+    {{#tables.length}}
+        <li>Tables</li>
+        <ul>
+            {{#tables}}
+                <li>
+                    <ac:link ac:anchor="table-{{{name}}}">
+                        <ac:plain-text-link-body>
+                          <![CDATA[{{{name}}}]]>
+                        </ac:plain-text-link-body>
+                      </ac:link>
+                </li>
+            {{/tables}}
+        </ul>
+    {{/tables.length}}
+    {{#procedures.length}}
+        <li>Stored procdures and functions</li>
+        <ul>
+            {{#procedures}}
+                <li>
+                    <ac:link ac:anchor="routine-{{{name}}}">
+                        <ac:plain-text-link-body>
+                          <![CDATA[{{{name}}}]]>
+                        </ac:plain-text-link-body>
+                      </ac:link>
+                </li>
+            {{/procedures}}
+        </ul>
+    {{/procedures.length}}
+    {{#events.length}}
+        <li>Events</li>
+        <ul>
+            {{#events}}
+                <li>
+                    <ac:link ac:anchor="event-{{{name}}}">
+                        <ac:plain-text-link-body>
+                          <![CDATA[{{{name}}}]]>
+                        </ac:plain-text-link-body>
+                      </ac:link>
+                </li>
+            {{/events}}
+        </ul>
+    {{/events.length}}
+    </ul>
+{{/tocItems}}
+{{#tocItems}}
+    {{#tables.length}}<h2>Tables</h2>{{/tables.length}}
+    {{#tables}}
+    <ac:structured-macro ac:name="anchor">
+        <ac:parameter ac:name="">table-{{{name}}}</ac:parameter>
+    </ac:structured-macro>
+    <h3>{{{name}}}</h3>
+        <div>
+            {{#comment}}<div>{{{comment}}}</div>{{/comment}}
+            {{#engine}}<div><b>Engine</b>: {{{engine}}}</div>{{/engine}}
+            {{#collation}}<div><b>Charset</b>: {{{collation}}}</div>{{/collation}}
+            {{#createdAt}}<div><b>Created at</b>: {{{createdAt}}}</div>{{/createdAt}}
+        </div>
+        {{#ddl}}
+            <ac:structured-macro ac:name="code">
+                <ac:parameter ac:name="title">DDL of {{{name}}}</ac:parameter>
+                <ac:parameter ac:name="language">sql</ac:parameter>
+                <ac:parameter ac:name="collapse">true</ac:parameter>
+                <ac:plain-text-body><![CDATA[{{{ddl}}}]]></ac:plain-text-body>
+            </ac:structured-macro>
+        {{/ddl}}
+        {{#columns.length}}
+        <h4>Columns</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Modificators</th>
+                        <th>Nullable</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {{#columns}}
+                <tr>
+                    <td>{{{name}}}</td>
+                    <td>{{{type}}}</td>
+                    <td>{{{extra}}}</td>
+                    <td>{{{nullable}}}</td>
+                    <td>{{{default}}}</td>
+                    <td>{{{comment}}}</td>
+                </tr>
+            {{/columns}}
+                </tbody>
+            </table>
+        {{/columns.length}}
+        {{#indexes.length}}
+        <h4>Indexes</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Columns</th>
+                        <th>Type</th>
+                        <th>Uniqie</th>
+                        <th>Visible</th>
+                        <th>Order</th>
+                        <th>Nullable</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {{#indexes}}
+                <tr>
+                    <td>{{{name}}}</td>
+                    <td>{{{columns}}}</td>
+                    <td>{{{type}}}</td>
+                    <td>{{{uniqie}}}</td>
+                    <td>{{{visible}}}</td>
+                    <td>{{{order}}}</td>
+                    <td>{{{nullable}}}</td>
+                    <td>{{{comment}}}</td>
+                </tr>
+            {{/indexes}}
+                </tbody>
+            </table>
+        {{/indexes.length}}
+        {{#foreigns.length}}
+            <h4>Foreign keys</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Table</th>
+                        <th>Columns</th>
+                        <th>Referenced table</th>
+                        <th>Referenced columns</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#foreigns}}
+                    <tr>
+                        <td>{{{name}}}</td>
+                        <td>
+                            <ac:link ac:anchor="table-{{{table}}}">
+                                <ac:plain-text-link-body>
+                                  <![CDATA[{{{table}}}]]>
+                                </ac:plain-text-link-body>
+                              </ac:link>
+                        </td>
+                        <td>{{{columns}}}</td>
+                        <td>
+                            <ac:link ac:anchor="table-{{{tableRef}}}">
+                                <ac:plain-text-link-body>
+                                    <![CDATA[{{{tableRef}}}]]>
+                                </ac:plain-text-link-body>
+                            </ac:link>
+                        </td>
+                        <td>{{{columnsRef}}}</td>
+                    </tr>
+                {{/foreigns}}
+                </tbody>
+            </table>
+        {{/foreigns.length}}
+        {{#triggers.length}}
+            <h4>Triggers</h4>
+            {{#triggers}}
+            <h5>{{{name}}}</h5>
+            {{#comment}}<div>{{{comment}}}</div>{{/comment}}
+            {{#ddl}}
+                <ac:structured-macro ac:name="code">
+                    <ac:parameter ac:name="title">DDL of {{{name}}}</ac:parameter>
+                    <ac:parameter ac:name="language">sql</ac:parameter>
+                    <ac:parameter ac:name="collapse">true</ac:parameter>
+                    <ac:plain-text-body><![CDATA[{{{ddl}}}]]></ac:plain-text-body>
+                </ac:structured-macro>
+            {{/ddl}}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Timing</th>
+                        <th>Charset</th>
+                        <th>Created at</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{{action}}}</td>
+                        <td>{{{timing}}}</td>
+                        <td>{{{collation}}}</td>
+                        <td>{{{createdAt}}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {{/triggers}}
+        {{/triggers.length}}
+        <hr />
+    {{/tables}}
+    {{#procedures.length}}
+    <h2>Stored procedures and functions</h2>
+    {{#procedures}}
+        <ac:structured-macro ac:name="anchor">
+            <ac:parameter ac:name="">routine-{{{name}}}</ac:parameter>
+        </ac:structured-macro>
+        <h3>{{{name}}}</h3>
+        <div><p>{{{comment}}}</p></div>
+        {{#returns}}<div><p>Returns: {{{returns}}}</p></div>{{/returns}}
+        <ac:structured-macro ac:name="code">
+            <ac:parameter ac:name="title">Body of {{{name}}}</ac:parameter>
+            <ac:parameter ac:name="language">sql</ac:parameter>
+            <ac:parameter ac:name="collapse">true</ac:parameter>
+            <ac:plain-text-body><![CDATA[{{{body}}}]]></ac:plain-text-body>
+        </ac:structured-macro>
+    {{/procedures}}
+    {{/procedures.length}}
+    {{#events.length}}
+        <h2 id="events">Events</h2>
+        {{#events}}
+            <ac:structured-macro ac:name="anchor">
+                <ac:parameter ac:name="">event-{{{name}}}</ac:parameter>
+            </ac:structured-macro>
+            <h3>{{{name}}}</h3>
+            <div>
+                {{#comment}}<div>{{{comment}}}</div>{{/comment}}
+                {{#collation}}<div><b>Charset</b>: {{{collation}}}</div>{{/collation}}
+                {{#createdAt}}<div><b>Created at</b>: {{{createdAt}}}</div>{{/createdAt}}
+                {{#alteredAt}}<div><b>Updated at</b>: {{{alteredAt}}}</div>{{/alteredAt}}
+                {{#lastExecutedAt}}<div><b>Last executed at</b>: {{{lastExecutedAt}}}</div>{{/lastExecutedAt}}
+                {{#startsAt}}<div><b>Starts at</b>: {{{startsAt}}}</div>{{/startsAt}}
+                {{#endsAt}}<div><b>Ends at</b>: {{{endsAt}}}</div>{{/endsAt}}
+                {{#executeAt}}<div><b>Execute at</b>: {{{executeAt}}}</div>{{/executeAt}}
+                {{#interval}}<div><b>Interval</b>: {{{interval}}}</div>{{/interval}}
+                {{#intervalValue}}<div><b>Interval value</b>: {{{intervalValue}}}</div>{{/intervalValue}}
+                {{#status}}<div><b>Status</b>: {{{status}}}</div>{{/status}}
+            </div>
+            {{#ddl}}
+                <ac:structured-macro ac:name="code">
+                    <ac:parameter ac:name="title">DDL of {{{name}}}</ac:parameter>
+                    <ac:parameter ac:name="language">sql</ac:parameter>
+                    <ac:parameter ac:name="collapse">true</ac:parameter>
+                    <ac:plain-text-body><![CDATA[{{{ddl}}}]]></ac:plain-text-body>
+                </ac:structured-macro>
+            {{/ddl}}
+            <div>
+                <b>Event body:</b>
+                {{#body}}
+                    <ac:structured-macro ac:name="code">
+                        <ac:parameter ac:name="title">Body of {{{name}}}</ac:parameter>
+                        <ac:parameter ac:name="language">sql</ac:parameter>
+                        <ac:parameter ac:name="collapse">true</ac:parameter>
+                        <ac:plain-text-body><![CDATA[{{{body}}}]]></ac:plain-text-body>
+                    </ac:structured-macro>
+                {{/body}}
+            </div>
+            <a href="#events">Наверх</a>
+        {{/events}}
+    {{/events.length}}
+{{/tocItems}}

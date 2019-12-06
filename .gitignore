@@ -1,0 +1,16 @@
+node_modules
+package-lock.json
+.vscode
+/lib
+yarn-error.log
+yarn.lock
+schema-docs
+coverage
+*.er
+*.svg
+*.png
+*.env
+chinook/*
+*.json
+!examples/**/*.json
+!examples/**/*.er
