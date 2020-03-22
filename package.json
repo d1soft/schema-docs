@@ -6,6 +6,10 @@
   "bin": {
     "schema-docs": "./bin/schema-docs"
   },
+  "repository": {
+    "url": "https://github.com/d1soft/schema-docs",
+    "type": "git"
+  },
   "scripts": {
     "install": "yarn run build",
     "build": "tsc -p . && yarn run copyfiles",
