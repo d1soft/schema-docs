@@ -1,6 +1,6 @@
 {
   "name": "schema-docs",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Generates docs and ERD from database schema (using comments for description) in various templates (md, html, confluence-editor, confluence-wiki). Supported mysql. ",
   "main": "./lib/index.js",
   "bin": {
