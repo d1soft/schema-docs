@@ -1,12 +1,42 @@
+import { RoutineType } from "./RoutineType";
+
 /**
- * stored procedures and stored functions
+ * Stored procedures and stored functions
  */
-export type Routine = {
+export interface Routine {
+
+    /**
+     * Name
+     */
     name: string;
-    type: 'PROCEDURE' | 'FUNCTION';
+
+    /**
+     * Routine type
+     */
+    type: RoutineType;
+
+    /**
+     * Last execution date
+     */
     alertedAt?: string;
+
+    /**
+     * Creation date
+     */
     createdAt?: string;
+
+    /**
+     * Stored procedure or stored function body
+     */
     body: string;
+
+    /** 
+     * DDL comment
+     */
     comment: string;
-    returns: string; // DTD_IDENTIFIER
+
+    /**
+     * If stored function, returned data type
+     */
+    returns?: string;
 };

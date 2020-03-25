@@ -13,13 +13,14 @@ import { groupBy, semverCompare, dateFormatter, FormatterCallback} from '../../U
 import { MySQLEvent } from './Event';
 import { EventDDL } from './EventDDL';
 import { TriggerDDL } from './TriggerDDL';
-import { Adapter } from './Adapter';
+import { IMySQLAdapter } from './IAdapter';
+import { RoutineType } from '../../Schema/RoutineType';
 
 /**
  * @class MySQLAdapter
  * @description MySQL schema info scrapper
  */
-export class MySQLAdapter implements Adapter {
+export class MySQLAdapter implements IMySQLAdapter {
     /**
      *
      */
@@ -76,7 +77,8 @@ export class MySQLAdapter implements Adapter {
      * @returns {Promise<Schema>}
      */
     public async getSchema(): Promise<Schema> {
-        let events, constraints;
+        let events;
+        // let constraints;
 
         const tables = await this.getTables();
         const procedures = await this.getRoutines();
@@ -99,7 +101,7 @@ export class MySQLAdapter implements Adapter {
          * Check constraints supported MySQL from 8.0.16
          */
         if (semverCompare('8.0.16', this.getVersion()) >= 0) {
-            //constraints = await this.getChecks();
+            // constraints = await this.getChecks();
         }
 
         await Promise.all(actions);
@@ -238,8 +240,8 @@ export class MySQLAdapter implements Adapter {
                 comment: p.ROUTINE_COMMENT,
                 createdAt: this.formate(p.CREATED),
                 name: p.ROUTINE_NAME,
-                returns: p.DTD_IDENTIFIER,
-                type: p.ROUTINE_TYPE,
+                returns: p.DTD_IDENTIFIER || undefined,
+                type: p.ROUTINE_TYPE === 'FUNCTION' ? RoutineType.Function : RoutineType.Procedure,
             };
         });
     }
@@ -264,24 +266,24 @@ export class MySQLAdapter implements Adapter {
             })
         );
 
-        tables.map((t: Table) => {
+        tables.map((table: Table) => {
             const tableTriggers = triggers.filter(
-                tr => tr.EVENT_OBJECT_TABLE === t.name
+                tr => tr.EVENT_OBJECT_TABLE === table.name
             );
 
             if (tableTriggers.length > 0) {
-                t.triggers = tableTriggers.map((c: MySQLTrigger) => {
+                table.triggers = tableTriggers.map((c: MySQLTrigger) => {
                     const ddl = triggersDDL.find(t => t[0].Trigger === c.TRIGGER_NAME);
 
                     return {
                         action: c.EVENT_MANIPULATION,
                         body: c.ACTION_STATEMENT,
-                        collation: c.DATABASE_COLLATION || t.collation,
+                        collation: c.DATABASE_COLLATION || table.collation,
                         createdAt: this.formate(c.CREATED),
+                        ddl: ddl ? ddl[0]["SQL Original Statement"].trim() : '',
                         name: c.TRIGGER_NAME,
                         sqlMode: c.SQL_MODE,
                         timing: c.ACTION_TIMING,
-                        ddl: ddl ? ddl[0]["SQL Original Statement"].trim() : '',
                     };
                 });
             }

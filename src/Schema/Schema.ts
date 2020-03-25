@@ -5,6 +5,7 @@ import { Event } from './Event';
  * RDBM objects generic description
  */
 export type Schema = {
+    
     /**
      * Database name
      *
