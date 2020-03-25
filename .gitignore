@@ -14,3 +14,4 @@ chinook/*
 *.json
 !examples/**/*.json
 !examples/**/*.er
+/docs

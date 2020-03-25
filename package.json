@@ -20,7 +20,8 @@
     "tslint:check": "tslint-config-prettier-check ./tslint.json",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "yarn run prettier:base --list-different \"src/**/*.{ts,tsx}\"",
-    "prettier:write": "yarn run prettier:base --write \"src/**/*.{ts,tsx}\""
+    "prettier:write": "yarn run prettier:base --write \"src/**/*.{ts,tsx}\"",
+    "docs": "typedoc --out ./docs"
   },
   "nodemonConfig": {
     "ignore": [
