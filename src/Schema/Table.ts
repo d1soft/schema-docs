@@ -4,6 +4,7 @@ import {
     Index, 
     Trigger 
 } from './index';
+import { PartitionInfo } from './PartitionInfo';
 
 /**
  * Common table definition
@@ -54,6 +55,11 @@ export interface Table {
      * Triggers list
      */
     triggers?: Trigger[];
+
+    /**
+     * 
+     */
+    partitions?: PartitionInfo;
 
     /**
      * DDL query

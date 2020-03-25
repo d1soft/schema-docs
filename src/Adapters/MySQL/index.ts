@@ -8,13 +8,14 @@ import { MySQLTrigger } from './Trigger';
 import { TableDDL } from './TableDDL';
 import { Variable } from './Variable';
 import { ConfigDatabase } from '../../Configurator/ConfigDatabase';
-import { Routine, Schema, Table, Event } from '../../Schema';
+import { Routine, Schema, Table, Event, Index } from '../../Schema';
 import { groupBy, semverCompare, dateFormatter, FormatterCallback} from '../../Utils';
 import { MySQLEvent } from './Event';
 import { EventDDL } from './EventDDL';
 import { TriggerDDL } from './TriggerDDL';
 import { IMySQLAdapter } from './IAdapter';
 import { RoutineType } from '../../Schema/RoutineType';
+import { MySQLPartition } from './Partition';
 
 /**
  * @class MySQLAdapter
@@ -355,7 +356,7 @@ export class MySQLAdapter implements IMySQLAdapter {
                     tableIndexes
                 );
 
-                t.indexes = Object.values(composite).map(
+                const indexes: Index[] = Object.values(composite).map(
                     (idxs: MySQLIndex[]) => {
                         return {
                             columns: idxs
@@ -376,8 +377,26 @@ export class MySQLAdapter implements IMySQLAdapter {
                         };
                     }
                 );
+
+                t.indexes = indexes;
             }
         });
+    }
+
+    public async getPartitions(tables: Table[]): Promise<void> {
+        const partitions = await this.query<MySQLPartition[]>(
+            `SELECT * FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA = '${this.databaseName}'`
+        );
+
+        tables.forEach((table: Table) => {
+            const tablePartitions = partitions.filter(
+                p => p.TABLE_NAME === table.name && p.PARTITION_NAME !== null
+            );
+
+            if(tablePartitions.length > 0) {
+                
+            }
+        })
     }
 
     /**
